@@ -1,0 +1,206 @@
+<div>
+		<div class="container login-wrap">
+			<div class="w3-border-bottom">
+				<button class="w3-bar-item w3-button w3-white" onclick="openLoginTab()"
+					style="width: 50%; float: left;">
+					<h4>Login</h4>
+				</button>
+				<button class="w3-bar-item w3-button w3-white" onclick="openRegisterTab()"
+					style="width: 50%;">
+					<h4>Register</h4>
+				</button>
+			</div>
+			<div id="login" style="padding: 10% 15% 10% 15%;">
+				<form class="loginForm" (ngSubmit)="onSubmit(loginForm.value)" #loginForm="ngForm">
+					<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" />
+					<table style="width: 100%;">
+						<tr>
+							<td style="padding-bottom: 10%; padding-left: 2%;"><i
+								class="fa fa-user  w3-xxlarge w3-text-blue"></i></td>
+							<td style="padding-bottom: 10%; padding-left: 2%;"><input
+								placeholder="Username" class="w3-input" name="username"
+								value="{{userdetails.username}}" [(ngModel)]="userdetails.username" 
+								required #username="ngModel"
+								style="border-radius: 25px;" type="text" />
+								<div [hidden]="username.valid || username.pristine" class="showerror">
+									User Name required
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="padding-bottom: 10%; padding-left: 2%;"><i
+								class="fa fa-lock w3-xxlarge w3-text-blue"></i></td>
+							<td style="padding-bottom: 10%; padding-left: 2%;"><input
+								type="password" style="border-radius: 25px;" name="password"
+								placeholder="Password" class="w3-input" 
+								value="{{userdetails.password}}" 
+								[(ngModel)]="userdetails.password" 
+								required #password="ngModel"
+								 />
+								<div [hidden]="password.valid || password.pristine" class="showerror">
+											Password required
+								</div>
+							</td>
+						</tr>
+					</table>
+					<br /> <input type="submit" value="Login" name="login"
+						class="w3-button w3-blue"
+						style="padding: 15px 20px; border-radius: 25px; width: 100%;" />
+					<br /> <br /> <br />
+				</form>
+				<br />
+				<br/>
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					<a href="" (click)="forgetPasswordOpen()" style="background-color: white;" data-toggle="modal"
+						data-target="#forgotPasswordModal"><b>Forget Password?</b></a>
+				</div>
+				
+				<ul style="border-collapse: separate; border-spacing: 2px"
+					class="social-network social-circle">
+					<li><a href="/statelesssocial/auth/facebook" class="icoFacebook"
+						title="Facebook"><i class="fa fa-facebook"></i></a></li>
+					<li><a href="/statelesssocial/auth/google?scope=https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.me https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
+						class="icoGoogle" title="Google +"><i
+							class="fa fa-google-plus"></i></a></li>
+					<li><a href="/statelesssocial/auth/twitter" class="icoTwitter"
+						title="Twitter"><i class="fa fa-twitter"></i></a></li>
+					<li><a href="/statelesssocial/auth/linkedin" class="icoLinkedin"
+						title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+
+				</ul>
+						
+			</div>
+			<div id="register" style="display: none; padding: 10% 15% 10% 15%;">
+
+
+				<form class="registerForm" name="registerForm" id="registerForm" #registerForm="ngForm">
+					<table style="width: 100%;">
+						<tr>
+							<td style="padding-bottom: 10%; padding-left: 2%;"><i
+								class="fa fa-user  w3-xxlarge w3-text-blue"></i></td>
+							<td style="padding-bottom: 10%; padding-left: 2%;">
+							<input placeholder="First Name" [(ngModel)]="regmodel.fname" name="fname" required
+								style="width: 100%; border-radius: 25px;" class="w3-input"
+								type="text"  #fname="ngModel" />
+							<div [hidden]="fname.valid || fname.pristine"   class="showerror">
+										First Name required
+							</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="padding-bottom: 10%; padding-left: 2%;"><i
+								class="fa fa-user  w3-xxlarge w3-text-blue"></i></td>
+							<td style="padding-bottom: 10%; padding-left: 2%;"><input
+								placeholder="Last Name" [(ngModel)]="regmodel.lname" name="lname" required
+								style="width: 100%; border-radius: 25px;" class="w3-input"
+								type="text" #lname="ngModel" />
+							<div [hidden]="lname.valid || lname.pristine"   class="showerror">
+										Last Name required
+							</div>
+							</td>
+						</tr>
+						
+						<tr>
+								<td style="padding-bottom: 10%; padding-left: 2%;"><i
+									class="fa fa-user  w3-xxlarge w3-text-blue"></i></td>
+								<td style="padding-bottom: 10%; padding-left: 2%;"><input
+									placeholder="User Name" [(ngModel)]="regmodel.username" 
+									name="username" required
+									style="width: 100%; border-radius: 25px;" class="w3-input"
+									type="text"  #username="ngModel" />
+								<div [hidden]="username.valid || username.pristine"   class="showerror">
+										User Name required
+								</div>
+								</td>	
+						</tr>
+
+
+						<tr>
+							<td style="padding-bottom: 10%; padding-left: 2%;"><i
+								class="w3-xxlarge w3-text-blue fa fa-envelope-o"></i></td>
+							<td style="padding-bottom: 10%; padding-left: 2%;"><input
+								placeholder="Email Id" 
+								
+								[(ngModel)]="regmodel.email" name="email" required style="width: 100%; border-radius: 25px;"
+								class="w3-input" type="text"   #email="ngModel" />
+							<div [hidden]="email.valid || email.pristine"   class="showerror">
+										Email Id required
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="padding-bottom: 10%; padding-left: 2%;"><i
+								class="fa fa-lock 	w3-xxlarge w3-text-blue"></i></td>
+							<td style="padding-bottom: 10%; padding-left: 2%;"><input
+								placeholder="Password" [(ngModel)]="regmodel.passwd" ng-minlength="8" ng-maxlength="20" name="passwd" required style="width: 100%; border-radius: 25px;"
+								class="w3-input" type="password"    #passwd="ngModel" />
+							<div [hidden]="passwd.valid || passwd.pristine"   class="showerror">
+										Invalid Password required
+								</div>
+							</td>
+							
+						</tr>
+						<tr>
+							<td style="padding-bottom: 10%; padding-left: 2%;"><i
+								class="w3-xxlarge fa fa-home w3-text-blue"></i></td>
+							<td style="padding-bottom: 10%; padding-left: 2%;"><input
+								placeholder="Location" [(ngModel)]="regmodel.location" 
+								name="location" required style="width: 100%; border-radius: 25px;"
+								class="w3-input" type="text" #location="ngModel" />
+							<div [hidden]="location.valid || location.pristine"   class="showerror">
+										Location required
+								</div>
+							</td>
+						</tr>
+					</table>
+					<b><h4>Create One security question For Completion.</h4></b>
+					<table>
+						<tr>
+							<td  style="padding-bottom: 10%; padding-left: 2%;"><i class="w3-xxlarge w3-text-blue glyphicon glyphicon-ok-circle"></i></td>
+							<td  style="padding-bottom: 10%; padding-left: 2%;">
+								<select [(ngModel)]="quesArray[0].qval" (ngModelChange)="onChangeObj($event)" name="question" #question="ngModel">
+								<option *ngFor="let ques of quesArray" [ngValue]= "ques.qval">{{ques.qval}}</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td><i class="material-icons w3-text-blue">&#xe8af;</i></td>
+							<td  style="padding-bottom: 10%; padding-left: 2%;">
+								<input placeholder="Answer Here" [(ngModel)]="regmodel.answer" 
+								name="answer" required style="width: 100%; border-radius: 25px;"
+								class="w3-input" type="text" #answer="ngModel" required/>
+								<div [hidden]="answer.valid || answer.pristine"   class="showerror">
+										Answer required
+								</div>
+							</td>
+						</tr>
+					</table>-->
+				</form>
+				<br /> <input [disabled]="registerForm.invalid" type="submit" value="Register" name="register"
+					class="w3-button w3-blue"
+					style="padding: 15px 20px; border-radius: 25px; width: 100%;" (click)="registerNewUser()" /> <br />
+				<br /> <br /> <br />
+				<div *ngIf="this.regSuccess ==true" class="setSuccess">
+					<h3>Registration sucessfull</h3>
+				</div>
+				<div *ngIf="this.regError ==true" class="setError">
+					<h3>Registration unsucessfull</h3>
+				</div>
+				<br/><br/>
+				<ul style="border-collapse: separate; border-spacing: 2px"
+					class="social-network social-circle">
+					<li><a href="/statelesssocial/auth/facebook" class="icoFacebook"
+						title="Facebook"><i class="fa fa-facebook"></i></a></li>
+					<li><a href="/statelesssocial/auth/google?scope=https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.me https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
+						class="icoGoogle" title="Google +"><i
+							class="fa fa-google-plus"></i></a></li>
+					<li><a href="/statelesssocial/auth/twitter" class="icoTwitter"
+						title="Twitter"><i class="fa fa-twitter"></i></a></li>
+					<li><a href="/statelesssocial/auth/linkedin" class="icoLinkedin"
+						title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+
+				</ul>
+			</div>
+		</div>
+	</div>

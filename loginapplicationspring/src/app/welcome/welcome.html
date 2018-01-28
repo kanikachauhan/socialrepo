@@ -1,0 +1,215 @@
+<form (ngSubmit)="onSubmit(detailsForm.value)" #detailsForm="ngForm">
+<div class="w3-bar w3-blue">
+     <div *ngIf="userdetails?.role==='admin'">
+		  <p class="w3-bar-item w3-blue">Welcome Admin</p>
+	</div>
+	<div *ngIf="userdetails?.role==='user'">
+		  <p class="w3-bar-item w3-blue">Welcome User</p>
+	</div>
+		  <input type="button" value="Click To Enable Editing" name="enablebutton" (click)="enableFieldEdit()" class="w3-bar-item w3-btn w3-blue"/>
+		  <div *ngIf="userdetails?.role==='admin'">
+				<input type="button" (click) ="viewuserdetailpage()" class="w3-bar-item w3-btn w3-blue" value="Click Here to View Users"/>
+			</div>
+	
+			<div *ngIf="userdetails?.flag==false">
+				<input [disabled]="detailsForm.invalid" type="submit" value="Save Fields" name="save" class="w3-bar-item w3-btn w3-blue"/>
+			</div>
+			<div *ngIf="userdetails?.flag==true">
+				<input [disabled]="detailsForm.invalid" type="submit" value="Update Fields" name="update" class="w3-bar-item w3-btn w3-blue"/>
+			</div>
+		<div *ngIf="providerCookie!=''">
+			<input type="button" (click) ="logOut()" class="w3-bar-item w3-btn w3-blue glyphicon glyphicon-log-out w3-right" value="LogOut"/>
+		</div>
+</div>
+<div class="container">
+	<div *ngIf="userdetails?.flag==false">
+		<h3 class="w3-text-teal">New Registration Found... Want to keep the following settings?</h3>
+	</div>
+	<h1 class="w3-text-blue">Welcome {{userdetails?.username}}</h1>
+	
+		<table style="border-collapse: collapse;border-spacing: 10px;">
+			<tr>
+				<td><i class="fa fa-user  w3-xxlarge w3-text-blue"></i></td>
+				<td class="one"><b><label for="username" >UserName</label></b></td>
+				<td><input placeholder="User Name" class="form-control" name="username" 
+					id="username" style="width: 150%; border-radius: 25px;"
+					type="text" value="{{userdetails.username}}" [(ngModel)]="userdetails.username" 
+					required #username="ngModel" readonly/>
+					<div [hidden]="username.valid || username.pristine" class="showerror">
+						User Name required
+					</div>
+				</td>	
+			</tr>
+			<tr>
+				<td><i class="fa fa-user-circle  w3-xxlarge w3-text-blue"></i></td>
+				<td class="one"><b>FirstName</b></td>
+				<td><div [hidden]="isEditable"><input placeholder="First Name" class="form-control w3-input" name="firstname" id="firstname" 
+					style="width: 150%; border-radius: 25px;"
+					[(ngModel)]="userdetails.firstname" type="text" value="{{userdetails.firstname}}" 
+					required #firstname="ngModel" readonly/></div>
+				<div [hidden]="!isEditable"><input placeholder="First Name" class="form-control w3-input" name="firstname" id="firstname" 
+					style="width: 150%; border-radius: 25px;"
+					[(ngModel)]="userdetails.firstname" type="text" value="{{userdetails.firstname}}" 
+					required #firstname="ngModel" /></div>
+
+				<div [hidden]="firstname.valid || firstname.pristine"  class="showerror">
+						First Name required
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td><i class="fa fa-user-o  w3-xxlarge w3-text-blue"></i></td>
+				<td class="one"><b>LastName</b></td>
+				<td><div [hidden]="isEditable"><input placeholder="Last Name" name="lastname" id="lastname" 
+					style="width: 150%; border-radius: 25px;" class="form-control w3-input"
+					 type="text" value="{{userdetails.lastname}}" [(ngModel)]="userdetails.lastname" 
+					  required #lastname="ngModel" readonly/></div>
+					<div [hidden]="!isEditable"><input placeholder="Last Name" name="lastname" id="lastname" 
+					style="width: 150%; border-radius: 25px;" class="form-control w3-input"
+					 type="text" value="{{userdetails.lastname}}" [(ngModel)]="userdetails.lastname" 
+					  required #lastname="ngModel" /></div>
+					  <div [hidden]="lastname.valid || lastname.pristine"  class="showerror">
+						Last Name required
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td><i class="glyphicon glyphicon-envelope  w3-xxlarge w3-text-blue"></i></td>
+				<td class="one"><b>Email</b></td>
+				<td><div [hidden]="isEditable"><input placeholder="Email" name="email" id="email" 
+					style="width: 150%; border-radius: 25px;" class="form-control w3-input" type="text"
+					 value="{{userdetails.email}}" [(ngModel)]="userdetails.email" 
+					  required #email="ngModel" readonly/></div>
+					<div [hidden]="!isEditable"><input placeholder="Email" name="email" id="email" 
+					style="width: 150%; border-radius: 25px;" class="form-control w3-input" type="text"
+					 value="{{userdetails.email}}" [(ngModel)]="userdetails.email" 
+					  required #email="ngModel" /></div>
+					 <div [hidden]="email.valid || email.pristine"  class="showerror">
+						Email required
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td><i class="material-icons  w3-xxlarge w3-text-blue">location_on</i></td>
+				<td class="one"><b>Location</b></td>
+				<td><div [hidden]="isEditable"><input placeholder="Location" name="location" id="location" 
+					style="width: 150%; border-radius: 25px;" class="form-control w3-input"
+					 type="text" value="{{userdetails.location}}" [(ngModel)]="userdetails.location" 
+					  required #location="ngModel" readonly/></div>
+					<div [hidden]="!isEditable"><input placeholder="Location" name="location" id="location" 
+					style="width: 150%; border-radius: 25px;" class="form-control w3-input"
+					 type="text" value="{{userdetails.location}}" [(ngModel)]="userdetails.location" 
+					  required #location="ngModel" /></div>
+					  <div [hidden]="location.valid || location.pristine"  class="showerror">
+						Location required
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td><i class="fa fa-industry  w3-xxlarge w3-text-blue"></i></td>
+				<td class="one"><b>Industry</b></td>
+				<td><div [hidden]="isEditable"><input placeholder="Industry" name="industry" id="industry" 
+					style="width: 150%; border-radius: 25px;" class="form-control w3-input"
+					 type="text" value="{{userdetails.industry}}" [(ngModel)]="userdetails.industry" 
+					  required #industry="ngModel" readonly/></div>
+					<div [hidden]="!isEditable"><input placeholder="Industry" name="industry" id="industry" 
+					style="width: 150%; border-radius: 25px;" class="form-control w3-input"
+					 type="text" value="{{userdetails.industry}}" [(ngModel)]="userdetails.industry" 
+					  required #industry="ngModel" /></div>
+					  <div [hidden]="industry.valid || industry.pristine"  class="showerror">
+						Industry required
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td><i class="fa fa-birthday-cake  w3-xxlarge w3-text-blue"></i></td>
+				<td class="one"><b>Birthday</b></td>
+				<td><div [hidden]="isEditable"><input placeholder="Birthday" name="birthday" id="birthday" 
+					style="width: 150%; border-radius: 25px;" class="form-control w3-input"
+					 type="text" value="{{userdetails.birthday}}" [(ngModel)]="userdetails.birthday" 
+					  required #birthday="ngModel" readonly/></div>
+					<div [hidden]="!isEditable"><input placeholder="Birthday" name="birthday" id="birthday" 
+					style="width: 150%; border-radius: 25px;" class="form-control w3-input"
+					 type="text" value="{{userdetails.birthday}}" [(ngModel)]="userdetails.birthday" 
+					  required #birthday="ngModel" /></div>
+					  <div [hidden]="birthday.valid || birthday.pristine"  class="showerror">
+						Birthday required
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td><i class="fa fa-envira  w3-xxlarge w3-text-blue"></i></td>
+				<td class="one"><b>Creation Date</b></td>
+				<td><input placeholder="Creation Date" 
+					name="creationDate" id="creationDate" style="width: 150%; border-radius: 25px;" 
+					class="form-control w3-input"
+					 type="text" value="{{userdetails.creationDate}}" 
+					  [(ngModel)]="userdetails.creationDate" required #creationDate="ngModel" readonly/>
+					  <div [hidden]="creationDate.valid || creationDate.pristine"  class="showerror">
+						Creation Date required
+					</div>
+				</td>	 
+			</tr>
+			<tr>
+				<td><i class="fa fa-repeat  w3-xxlarge w3-text-blue"></i></td>
+				<td class="one"><b>Last Modified Date</b></td>
+				<td><input placeholder="Last Modified Date" 
+					name="updateDate" id="updateDate" style="width: 150%; border-radius: 25px;" 
+					class="form-control w3-input"
+					 type="text" value="{{userdetails.updateDate}}" [(ngModel)]="userdetails.updateDate" 
+					  required #updateDate="ngModel" readonly/>
+					  
+					 <div [hidden]="updateDate.valid || updateDate.pristine"  class="showerror">
+						Last Modified Date required
+					</div>
+				</td>
+
+			</tr>
+			<tr>
+				<td><i class="fa fa-universal-access  w3-xxlarge w3-text-blue"></i></td>
+				<td class="one"><b>Gender</b></td>
+				<td><div [hidden]="isEditable"><input placeholder="Gender" 
+					name="gender" id="gender" style="width: 150%; border-radius: 25px;" 
+					class="form-control w3-input" type="text"
+					 value="{{userdetails.gender}}" 
+					  [(ngModel)]="userdetails.gender" required #gender="ngModel" readonly/></div>
+					<div [hidden]="!isEditable"><input placeholder="Gender" name="gender" id="gender" style="width: 150%; border-radius: 25px;" 
+					class="form-control w3-input" type="text"
+					 value="{{userdetails.gender}}" 
+					  [(ngModel)]="userdetails.gender" required #gender="ngModel" /></div>
+				<div [hidden]="gender.valid || gender.pristine"   class="showerror">
+						Gender required
+					</div>
+				</td>
+
+			</tr>
+			<tr>
+				<td><i class="fa fa-hand-o-right  w3-xxlarge w3-text-blue"></i></td>
+				<td class="one"><b>User Id</b></td>
+				<td><input placeholder="User ID" [(ngModel)]="userdetails.id" name="id" id="id" 
+					style="width: 150%; border-radius: 25px;" #id="ngModel" class="form-control w3-input" type="text"
+					 value="{{userdetails.id}}" required readonly/></td>
+			</tr>
+			<tr>
+				<td><i class="material-icons  w3-xxlarge w3-text-blue">perm_identity</i></td>
+				<td class="one"><b>Role</b></td>
+				<td><input placeholder="Role" name="role"
+					 #role="ngModel"  [(ngModel)]="userdetails.role"
+					id="role" style="width: 150%; border-radius: 25px;" class="form-control w3-input" type="text"
+					 value="{{userdetails.role}}" required readonly/></td>
+			</tr>
+			<input type="hidden" value="userdetails?.flag" [(ngModel)]="userdetails.flag" #flag="ngModel" name="flag" id="flag"/>
+			<input type="hidden" value="userdetails?.providerUserId" 
+			[(ngModel)]="userdetails.providerUserId" #providerUserId="ngModel" name="providerUserId" providerUserId="providerUserId"/>
+		</table>	
+		
+				
+		
+		<div *ngIf="savesuccessFlag==true">
+			<h3>Details Successfully Saved</h3>
+		</div>
+		<div *ngIf="errorFlag==true">
+			<h3>Details Not Saved</h3>
+		</div>
+	</div>
+</form>

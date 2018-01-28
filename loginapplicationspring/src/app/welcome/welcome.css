@@ -1,0 +1,24 @@
+td{
+  padding-bottom: 10%; padding-left: 2%;
+ }
+ .one{
+	padding-left:10%;
+	padding-right:10%;
+ }
+.customlink{
+	background-color: white;
+	text-decoration: none;
+	color: #ff3300;
+}
+.showerror{
+	color: red;
+	font-weight: bold;
+	padding-left: 5px;
+	padding-top: 5px;  
+}
+.hightext{
+    font-weight:bold;
+}
+.w3-btn:hover{
+	box-shadow:none !important;	
+}
